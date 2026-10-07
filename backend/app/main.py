@@ -37,7 +37,9 @@ def root_info() -> dict:
         "project": "A.D.A.N.",
         "full_name": "AI Data Analysis & Verification Network",
         "track": "PS08: Proof-Carrying Data Analyst (Agentic GenAI)",
-        "phase": "Phase 1 - Project Foundation",
+        "phase": "Phase 2 - Dataset Upload & Profiling",
         "docs_url": "/docs",
         "health_check": "/health",
+        "datasets_endpoint": "/api/datasets",
     }
+

@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Header({ backendHealth }) {
+export function Header({ backendHealth, selectedDataset }) {
   return (
     <header className="app-header">
       <div className="brand-section">
@@ -22,8 +22,21 @@ export function Header({ backendHealth }) {
           PS08: Proof-Carrying Data Analyst
         </span>
         <span className="badge badge-phase">
-          Phase 1: Foundation
+          Phase 2: Dataset Profiling
         </span>
+        {selectedDataset && (
+          <span
+            className="badge"
+            style={{
+              backgroundColor: "rgba(14, 165, 233, 0.12)",
+              color: "#38bdf8",
+              borderColor: "rgba(14, 165, 233, 0.3)",
+            }}
+            title={`Active dataset: ${selectedDataset.filename}`}
+          >
+            Data: {selectedDataset.filename}
+          </span>
+        )}
         <span className="badge badge-health">
           <span className="pulse-dot"></span>
           {backendHealth ? "Backend Healthy (200 OK)" : "Engine Ready"}

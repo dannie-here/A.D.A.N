@@ -27,6 +27,8 @@ ENV/
 .pytest_cache/
 .coverage
 htmlcov/
+backend/data/
+
 
 # Node / Frontend
 node_modules/

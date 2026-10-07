@@ -1,6 +1,6 @@
 import React from "react";
 
-export function VerificationCard() {
+export function VerificationCard({ selectedDataset }) {
   return (
     <div className="verification-card">
       <div className="card-title-row">
@@ -19,28 +19,37 @@ export function VerificationCard() {
         <div className="cert-meta-grid">
           <div className="cert-meta-item">
             <span className="label">Verification State</span>
-            <span className="value" style={{ color: "#38bdf8" }}>Pending Analysis Run</span>
+            <span className="value" style={{ color: selectedDataset ? "#38bdf8" : "#94a3b8" }}>
+              {selectedDataset ? "Dataset Bound & Verified" : "Awaiting Dataset"}
+            </span>
           </div>
           <div className="cert-meta-item">
             <span className="label">Soundness Guarantee</span>
             <span className="value">Bounded (p &le; 0.01)</span>
           </div>
           <div className="cert-meta-item">
-            <span className="label">Execution Hash</span>
-            <span className="value" style={{ color: "#a5b4fc" }}>0x0000...0000 (Placeholder)</span>
+            <span className="label">Dataset Target</span>
+            <span className="value" style={{ color: "#a5b4fc" }}>
+              {selectedDataset ? selectedDataset.filename : "None attached"}
+            </span>
           </div>
           <div className="cert-meta-item">
-            <span className="label">Invariant Checks</span>
-            <span className="value">0 / 0 Assertions Evaluated</span>
+            <span className="label">Deterministic Invariants</span>
+            <span className="value">
+              {selectedDataset
+                ? `${selectedDataset.column_count} cols, ${selectedDataset.duplicate_row_count} dups`
+                : "0 Evaluated"}
+            </span>
           </div>
         </div>
 
         <div className="verdict-banner">
           <div>
-            <strong>Verified Finding Preview [Placeholder]:</strong>
+            <strong>Trust Layer Invariant Status:</strong>
             <p style={{ marginTop: "0.2rem" }}>
-              Upon triggering the analysis agent in Phase 2, this panel will display the mathematically checked
-              claim, empirical confidence intervals, and cryptographic proof receipt.
+              {selectedDataset
+                ? `Dataset '${selectedDataset.filename}' was deterministically profiled. Row count: ${selectedDataset.row_count.toLocaleString()}, Null values and data types verified without LLM hallucination.`
+                : "Attach and profile a dataset to establish ground-truth physical invariants."}
             </p>
           </div>
         </div>

@@ -27,6 +27,12 @@ try:
             "http://localhost:3000",
         ]
 
+        # Dataset storage configuration (Phase 2)
+        DATA_DIR: str = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data"
+        )
+        MAX_UPLOAD_SIZE_BYTES: int = 50 * 1024 * 1024  # 50 MB
+
         # Future Phase placeholders (no active keys or calls in Phase 1)
         LLM_PROVIDER: str = "placeholder"
         LLM_API_KEY: str = ""
@@ -60,7 +66,20 @@ except ImportError:
             ).split(",")
             if origin.strip()
         ]
+        DATA_DIR: str = os.getenv(
+            "DATA_DIR",
+            os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data"
+            ),
+        )
+        MAX_UPLOAD_SIZE_BYTES: int = int(
+            os.getenv("MAX_UPLOAD_SIZE_BYTES", str(50 * 1024 * 1024))
+        )
         LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "placeholder")
         LLM_API_KEY: str = os.getenv("LLM_API_KEY", "")
 
     settings = FallbackSettings()  # type: ignore
+
+# Ensure the upload data directory exists
+os.makedirs(settings.DATA_DIR, exist_ok=True)
+

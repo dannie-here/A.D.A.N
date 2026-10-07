@@ -647,3 +647,240 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* Phase 2: Dataset Upload & Profiling Styles */
+.upload-dropzone {
+  border: 1px dashed #334155;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 8px;
+  padding: 1rem 0.85rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-dropzone:hover,
+.upload-dropzone.drag-active {
+  border-color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.08);
+}
+
+.upload-icon {
+  width: 28px;
+  height: 28px;
+  color: #38bdf8;
+}
+
+.upload-prompt {
+  font-size: 0.76rem;
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+.upload-subprompt {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+.file-selected-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.74rem;
+  font-family: var(--font-mono);
+  color: #7dd3fc;
+  width: 100%;
+}
+
+.upload-action-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: opacity 0.15s ease;
+}
+
+.upload-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upload-action-btn:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.alert-box {
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.alert-error {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #fda4af;
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.columns-scroll-area {
+  max-height: 175px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-right: 0.2rem;
+}
+
+.columns-scroll-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.columns-scroll-area::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+.stat-metric-pill {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+}
+
+.numeric-stats-section,
+.date-ranges-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-column-card {
+  background: rgba(9, 14, 26, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.7rem;
+}
+
+.stat-column-name {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: #38bdf8;
+  margin-bottom: 0.35rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.stat-mini-box {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.25rem 0.15rem;
+  border-radius: 3px;
+}
+
+.stat-mini-box span.lbl {
+  display: block;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.stat-mini-box span.val {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #f1f5f9;
+  font-weight: 500;
+}
+
+.date-range-card {
+  background: rgba(9, 14, 26, 0.6);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 6px;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.7rem;
+}
+
+.date-range-name {
+  font-family: var(--font-mono);
+  color: #a5b4fc;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.date-range-dates {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.reset-dataset-btn {
+  background: transparent;
+  border: 1px solid #334155;
+  color: var(--text-secondary);
+  border-radius: 5px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.reset-dataset-btn:hover {
+  border-color: #f43f5e;
+  color: #f43f5e;
+}
+

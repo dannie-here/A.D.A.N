@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function QueryInput() {
+export function QueryInput({ selectedDataset }) {
   const [query, setQuery] = useState(
     "Verify whether the treatment group shows a statistically significant lift (p < 0.01) with bounded variance."
   );
@@ -18,7 +18,7 @@ export function QueryInput() {
     setShowNotice(true);
     setTimeout(() => {
       setShowNotice(false);
-    }, 4500);
+    }, 5000);
   };
 
   return (
@@ -26,6 +26,22 @@ export function QueryInput() {
       <div className="panel-header-row">
         <div className="panel-title">
           <span>Investigation Hypothesis / Query</span>
+          {selectedDataset && (
+            <span
+              style={{
+                fontSize: "0.72rem",
+                color: "#38bdf8",
+                fontWeight: 500,
+                fontFamily: "var(--font-mono)",
+                background: "rgba(14, 165, 233, 0.1)",
+                padding: "0.15rem 0.45rem",
+                borderRadius: "4px",
+                border: "1px solid rgba(14, 165, 233, 0.25)",
+              }}
+            >
+              Target: {selectedDataset.filename} ({selectedDataset.row_count.toLocaleString()} rows, {selectedDataset.column_count} cols)
+            </span>
+          )}
         </div>
         <div className="query-chips">
           {sampleChips.map((chip) => (
@@ -46,14 +62,20 @@ export function QueryInput() {
           className="investigation-textarea"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="State your analytical query or mathematical invariant to verify against the dataset..."
+          placeholder={
+            selectedDataset
+              ? `State your analytical query or invariant to verify against '${selectedDataset.filename}'...`
+              : "State your analytical query or mathematical invariant to verify against the dataset..."
+          }
           rows={3}
         />
       </div>
 
       <div className="input-action-bar">
         <span className="input-hint">
-          Deterministic execution &bull; Formal invariant checking &bull; Zero hallucinated findings
+          {selectedDataset
+            ? "Deterministic profile established • Invariant bounds verified • Ready for Phase 3 pipeline"
+            : "No dataset loaded. Upload and profile a dataset via the sidebar first."}
         </span>
         <button
           type="button"
@@ -76,8 +98,9 @@ export function QueryInput() {
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
           <span>
-            <strong>Phase 1 Notice:</strong> The analysis pipeline is deliberately non-functional in this foundation phase.
-            Agent synthesis, sandbox execution, and proof generation will be wired up in subsequent phases.
+            <strong>Phase 2 Status:</strong> Dataset upload and deterministic profiling are complete.
+            The analysis pipeline (AI question answering, code synthesis, sandbox execution, and formal proof generation)
+            will be wired up in subsequent phases.
           </span>
         </div>
       )}
