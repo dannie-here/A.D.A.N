@@ -1,28 +1,31 @@
 import React from "react";
 
-export function PipelineTimeline({ selectedDataset }) {
+export function PipelineTimeline({ selectedDataset, questionAnalysis }) {
   const steps = [
     {
       num: "01",
-      title: "Dataset & Invariants",
+      title: "Dataset Profiling",
       desc: selectedDataset
-        ? `Dataset '${selectedDataset.filename}' profiled with ${selectedDataset.column_count} features and ${selectedDataset.row_count.toLocaleString()} rows.`
-        : "Translates query into verifiable mathematical invariants & statistical hypotheses.",
-      state: selectedDataset ? "Data Profiled" : "Awaiting Dataset",
+        ? `Dataset '${selectedDataset.filename}' profiled: ${selectedDataset.column_count} features, ${selectedDataset.row_count.toLocaleString()} rows.`
+        : "Awaiting dataset upload and schema profiling.",
+      state: selectedDataset ? "Profiled (Phase 2)" : "Awaiting Dataset",
       active: !!selectedDataset,
     },
     {
       num: "02",
-      title: "Code Synthesis",
-      desc: "Synthesizes deterministic Python analysis script with strict assertions.",
-      state: "Ready for Pipeline",
-      active: false,
+      title: "Question Answerability",
+      desc: questionAnalysis
+        ? `Decision: ${questionAnalysis.status}. ${questionAnalysis.evidence.relevant_columns.length} relevant columns identified.`
+        : "Evaluates if required fields, aggregations, and date ranges exist.",
+      state: questionAnalysis ? questionAnalysis.status : "Awaiting Query",
+      active: !!questionAnalysis,
+      isAnswerable: questionAnalysis && questionAnalysis.status === "ANSWERABLE",
     },
     {
       num: "03",
-      title: "Sandboxed Trace",
-      desc: "Executes in an isolated runner and captures execution state & hashes.",
-      state: "Awaiting Trigger",
+      title: "Code Synthesis",
+      desc: "Synthesizes deterministic Python analysis script with strict assertions.",
+      state: "Phase 4 Standby",
       active: false,
     },
     {
@@ -41,7 +44,7 @@ export function PipelineTimeline({ selectedDataset }) {
           <span>Agentic Analysis &amp; Verification Pipeline</span>
         </div>
         <span className="status-indicator">
-          Pipeline Status: {selectedDataset ? "Dataset Ready [Phase 2]" : "Standby [Phase 2]"}
+          Pipeline Status: {questionAnalysis ? `Answerability: ${questionAnalysis.status}` : selectedDataset ? "Dataset Ready [Phase 3]" : "Standby"}
         </span>
       </div>
 
@@ -74,10 +77,12 @@ export function PipelineTimeline({ selectedDataset }) {
                 style={{
                   width: "5px",
                   height: "5px",
-                  backgroundColor: step.active ? "#38bdf8" : undefined,
+                  backgroundColor: step.active ? (step.isAnswerable ? "#10b981" : "#38bdf8") : undefined,
                 }}
               ></span>
-              <span style={{ color: step.active ? "#38bdf8" : undefined }}>{step.state}</span>
+              <span style={{ color: step.active ? (step.isAnswerable ? "#34d399" : "#38bdf8") : undefined }}>
+                {step.state}
+              </span>
             </div>
           </div>
         ))}

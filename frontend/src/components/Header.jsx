@@ -22,7 +22,7 @@ export function Header({ backendHealth, selectedDataset }) {
           PS08: Proof-Carrying Data Analyst
         </span>
         <span className="badge badge-phase">
-          Phase 2: Dataset Profiling
+          Phase 3: Question Answerability
         </span>
         {selectedDataset && (
           <span
