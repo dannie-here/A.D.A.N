@@ -5,13 +5,13 @@ import { QueryInput } from "./components/QueryInput";
 import { PipelineTimeline } from "./components/PipelineTimeline";
 import { VerificationCard } from "./components/VerificationCard";
 import { ProofCodeViewer } from "./components/ProofCodeViewer";
-
+import { QuestionAnalysisCard } from "./components/QuestionAnalysisCard";
 export function App() {
   const [backendHealth, setBackendHealth] = useState(null);
   const [selectedDataset, setSelectedDataset] = useState(null);
 
   const apiBase = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-
+  const [analysisResult, setAnalysisResult] = useState(null);
   // Check backend health and pre-load any existing dataset profile
   useEffect(() => {
     fetch(`${apiBase}/health`)
@@ -59,7 +59,15 @@ export function App() {
           onDatasetReset={handleDatasetReset}
         />
         <main className="workspace-main">
-          <QueryInput selectedDataset={selectedDataset} />
+          <QueryInput
+  selectedDataset={selectedDataset}
+  onAnalysisComplete={setAnalysisResult}
+/>
+
+<QuestionAnalysisCard
+  analysis={analysisResult}
+  onClear={() => setAnalysisResult(null)}
+/>
           <PipelineTimeline selectedDataset={selectedDataset} />
           <div className="dual-investigation-grid">
             <VerificationCard selectedDataset={selectedDataset} />
